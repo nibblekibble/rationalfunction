@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>The Rational Donut Shop · Revision 3</title>
+  <meta name="description" content="A dozen full rational-function investigations.">
+  <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+  <header class="topbar">
+    <button class="brand" id="homeButton" aria-label="Return to donut box">
+      <span class="mini-donut" aria-hidden="true"></span>
+      <span><small>WCA ALGEBRA 2</small><b>The Rational Donut Shop</b></span>
+    </button>
+    <div class="shop-stats">
+      <span><small>BOX A</small><b id="boxCount">0 / 12</b></span>
+      <span><small>STATUS</small><b id="boxStatus">Fresh dozen</b></span>
+    </div>
+  </header>
+
+  <main>
+    <section id="boxView" class="view active">
+      <div class="hero">
+        <div>
+          <p class="eyebrow">RATIONAL FUNCTION CASE FILES · BOX A</p>
+          <h1>Every hole<br>has a reason.</h1>
+          <p class="lede">Open a dozen functions. Account for every restriction, asymptote, intercept, and missing point—then finish the graph.</p>
+          <div class="legend" aria-label="Donut status legend">
+            <span><i class="legend-dot fresh"></i>Fresh</span>
+            <span><i class="legend-dot bitten"></i>In progress</span>
+            <span><i class="legend-dot crumbs"></i>Cleared</span>
+          </div>
+        </div>
+        <aside class="box-note">
+          <span>BAKER'S RULE № 1</span>
+          <b>Restrictions come before cancellation.</b>
+          <p>The original denominator decides which x-values never belonged to the function.</p>
+        </aside>
+      </div>
+
+      <section class="donut-box" aria-labelledby="dozenTitle">
+        <div class="box-heading">
+          <div><p class="eyebrow">TODAY'S SELECTION</p><h2 id="dozenTitle">The investigative dozen</h2></div>
+          <p>Function names only. Families remain a secret.</p>
+        </div>
+        <div id="donutGrid" class="donut-grid"></div>
+      </section>
+    </section>
+
+    <section id="caseView" class="view">
+      <button class="back" id="backButton">← Back to the box</button>
+      <div class="case-layout">
+        <aside class="ticket">
+          <p class="eyebrow">ORDER TICKET <span id="ticketNumber">01</span></p>
+          <div id="ticketDonut" class="donut-art large" aria-hidden="true"><span></span></div>
+          <h2 id="ticketName">Function</h2>
+          <div class="ticket-progress"><span id="ticketProgress"></span></div>
+          <ol id="stepList">
+            <li class="active">Original restrictions</li>
+            <li>Simplify & classify</li>
+            <li>End behavior</li>
+            <li>Intercepts</li>
+            <li>Graph station</li>
+          </ol>
+        </aside>
+
+        <article class="work-card">
+          <header class="case-header">
+            <div><p class="eyebrow">FUNCTION ON THE TRAY</p><h2 id="caseFunction" class="function"></h2></div>
+            <span class="order-status" id="orderStatus">Fresh</span>
+          </header>
+
+          <div class="rule-strip" id="caseNote"><b>Order matters:</b> record original restrictions, simplify, and then determine asymptotes from what remains.</div>
+
+          <section id="analysisPanel" class="panel active">
+            <p class="section-kicker">FULL ANALYSIS</p>
+            <h3>Account for every feature.</h3>
+            <div class="form-grid">
+              <label class="wide">Original domain restrictions
+                <input id="restrictionInput" placeholder="Example: -2, 4" autocomplete="off">
+                <small>Type the restricted values only. You do not need the ≠ symbol.</small>
+              </label>
+              <label>Hole(s), as ordered pair(s)
+                <input id="holeInput" placeholder="none or (x, y)" autocomplete="off">
+              </label>
+              <label>Vertical asymptote(s)
+                <input id="vaInput" placeholder="none or x = ..." autocomplete="off">
+              </label>
+              <label>Horizontal asymptote
+                <input id="haInput" placeholder="y = 0, none, or DNE" autocomplete="off">
+              </label>
+              <label>Oblique asymptote
+                <input id="oaInput" placeholder="equation, none, or DNE" autocomplete="off">
+              </label>
+              <label>x-intercept(s)
+                <input id="xInput" placeholder="none or ordered pair(s)" autocomplete="off">
+              </label>
+              <label>y-intercept
+                <input id="yInput" placeholder="none or (0, y)" autocomplete="off">
+              </label>
+            </div>
+            <div id="analysisFeedback" class="feedback hidden" role="status"></div>
+            <div class="actions">
+              <button class="secondary" id="hintButton">Open the baker's note</button>
+              <button class="primary" id="checkAnalysis">Inspect analysis →</button>
+            </div>
+          </section>
+
+          <section id="graphPanel" class="panel">
+            <p class="section-kicker">GRAPH STATION</p>
+            <h3>Build the function from verified features.</h3>
+            <p class="graph-intro">Place the structural features, then sketch the general branches. Messy is fine; mathematically meaningful is the goal.</p>
+            <aside class="verified-slip">
+              <div><p class="eyebrow">VERIFIED FEATURES</p><b>Your analysis receipt</b></div>
+              <ul id="verifiedFeatures"></ul>
+            </aside>
+            <div class="graph-tools" role="toolbar" aria-label="Graph tools">
+              <button data-tool="hole">○ <span>Donut Hole Tool</span></button>
+              <button data-tool="va">┆ <span>Vertical asymptote</span></button>
+              <button data-tool="ha">┄ <span>Horizontal asymptote</span></button>
+              <button data-tool="oa">╱ <span>Oblique: two points</span></button>
+              <button data-tool="point">● <span>Intercept</span></button>
+              <button data-tool="curve">⌁ <span>Branch sketch</span></button>
+              <button id="undoGraph">↶ <span>Undo</span></button>
+            </div>
+            <div class="graph-wrap">
+              <svg id="graph" viewBox="0 0 720 440" role="img" aria-label="Interactive coordinate plane">
+                <defs><pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#eadfd3" stroke-width="1"/></pattern></defs>
+                <rect width="720" height="440" fill="url(#grid)"/>
+                <path d="M0 220H720M360 0V440" stroke="#6d5650" stroke-width="2"/>
+                <g id="correctGraph" class="correct-graph hidden"></g>
+                <g id="graphMarks"></g>
+                <line id="linePreview" class="hidden" stroke="#a62f52" stroke-width="3" stroke-dasharray="9 7"/>
+              </svg>
+              <div class="graph-readout"><p id="graphInstruction">Choose a tool, then click or drag on the graph.</p><output id="coordinateReadout">x = 0, y = 0</output></div>
+            </div>
+            <div class="actions" id="drawingActions">
+              <button class="secondary" id="clearGraph">Clear sketch</button>
+              <button class="primary" id="submitGraph">Submit sketch for comparison →</button>
+            </div>
+            <div id="comparePanel" class="compare-panel hidden">
+              <div class="overlay-legend"><span><i class="student-line"></i>Your sketch</span><span><i class="correct-line"></i>Correct graph</span></div>
+              <p>Compare the structures and branch behavior. Your sketch is not expected to be pixel-perfect.</p>
+              <div class="actions">
+                <button class="secondary" id="toggleCorrect">Hide correct graph</button>
+                <button class="secondary" id="retryGraph">Retry without overlay</button>
+                <button class="primary" id="completeCase">My comparison is complete—wrap it up ✓</button>
+              </div>
+            </div>
+          </section>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="celebration">
+    <div class="celebration-donut donut-art large"><span></span></div>
+    <p class="eyebrow">ORDER CLEARED</p>
+    <h2>Only crumbs remain.</h2>
+    <p>The function has been fully investigated and added to the cleared dozen.</p>
+    <button class="primary" id="closeCelebration">Return to the box →</button>
+  </dialog>
+
+  <footer>Revision 3 · Progress saves in this browser · Every hole has a reason</footer>
+  <script src="app.js?v=4"></script>
+</body>
+</html>
